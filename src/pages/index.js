@@ -28,7 +28,7 @@ const getTime = (time) => {
   const arr = time.split(":");
   let suffix = "AM";
   let hours = Number(arr[0]);
-  if (hours > 12) suffix = "PM";
+  if (hours >= 12) suffix = "PM";
   hours = ((hours + 11) % 12) + 1;
   return hours.toString() + ":" + arr[1] + " " + suffix;
 };
@@ -129,6 +129,7 @@ export default function Home() {
     for (let i = 0; i < go.length; i++) {
       delay(i, go);
     }
+    if (go.length == 0) setLoading(false);
   }, []);
   return loading ? (
     <>
