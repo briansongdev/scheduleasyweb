@@ -1,0 +1,26 @@
+{
+    date: {},
+    startTime: {},
+    endTime: {},
+    name: {},
+    venueLocation: {},
+    nextHome: {},
+    adjustments: {
+        driving: {
+            time: 
+            distance: 
+            enabled:
+        },
+        walking: {
+            time: 
+            distance: 
+            enabled:
+        },
+        biking: {
+            time:
+            distance:
+            enabled:
+        }
+    },
+    notificationEnabled: false,
+}
