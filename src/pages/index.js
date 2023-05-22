@@ -161,7 +161,9 @@ export default function Home() {
         <HStack align="center" justify="space-between" w="95vw">
           <VStack alignItems="left">
             <Heading>SchedulEasy</Heading>
-            <Text>The only accurate, all-in-one scheduler you'll need.</Text>
+            <Text>
+              The only accurate, all-in-one scheduler you&apos;ll need.
+            </Text>
           </VStack>
           <HStack>
             <Button
@@ -211,9 +213,15 @@ export default function Home() {
             .sort(function (a, b) {
               return getTotalMin(a.startTime) - getTotalMin(b.startTime);
             })
-            .map((e) => {
+            .map((e, index) => {
               return (
-                <Stack direction="row" h="350px" spacing={3} p="4px">
+                <Stack
+                  direction="row"
+                  h="350px"
+                  spacing={3}
+                  p="4px"
+                  key={index}
+                >
                   <VStack spacing={0}>
                     <Text fontWeight="bold">
                       {format(
