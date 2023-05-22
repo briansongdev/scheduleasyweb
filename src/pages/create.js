@@ -228,7 +228,7 @@ export default function SignupCard() {
                       });
                     }}
                   >
-                    Send me a notification when it's time to leave.
+                    Send me a notification when it is time to leave.
                   </Checkbox>
                   <Checkbox
                     defaultChecked

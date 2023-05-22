@@ -20,7 +20,7 @@ export default function Pricing() {
     <Container h="100vh" mt="20px">
       <VStack>
         <Heading>Subscriptions</Heading>
-        <Text>You know yourself best. We'll do the rest.</Text>
+        <Text>You know yourself best. We&apos;ll do the rest.</Text>
       </VStack>
       <HStack justify="space-evenly" spacing={8}>
         <Center py={6}>
