@@ -133,7 +133,7 @@ export default function Home() {
         else setNum(totNum + 1);
       }
     } else {
-      if (events.length == totNum + 1) setLoading(false);
+      if (events.length == totNum + 1 || totNum == 0) setLoading(false);
     }
   }, [events]);
   return loading ? (
