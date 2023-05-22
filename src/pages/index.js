@@ -17,6 +17,7 @@ import {
   Stack,
   StackDivider,
   Divider,
+  Spinner,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import axios from "axios";
@@ -71,6 +72,7 @@ export default function Home() {
   const [events, setEvents] = useState([]);
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [totNum, setNum] = useState(0);
 
   function delay(i, go) {
     setTimeout(async () => {
@@ -117,8 +119,6 @@ export default function Home() {
         currInd += 1;
       }
       setEvents(go);
-      if (go.length - 1 == i) setLoading(false);
-      return go;
     }, 2000);
   }
   useEffect(() => {
@@ -126,17 +126,31 @@ export default function Home() {
       localStorage.getItem("schedule") != null
         ? JSON.parse(localStorage.getItem("schedule"))
         : [];
-    for (let i = 0; i < go.length; i++) {
-      delay(i, go);
+    if (events.length == 0) {
+      for (let i = 0; i < go.length; i++) {
+        delay(i, go);
+        if (go[i].nextHome) setNum(totNum + 2);
+        else setNum(totNum + 1);
+      }
+    } else {
+      if (events.length == totNum + 1) setLoading(false);
     }
-    if (go.length == 0) setLoading(false);
-  }, []);
+  }, [events]);
   return loading ? (
     <>
       <Head>
         <title>SchedulEasy</title>
       </Head>
-      <Center>Loading, please wait...</Center>
+      <VStack>
+        <Spinner
+          mt="20px"
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="teal"
+          size="xl"
+        />
+      </VStack>
     </>
   ) : (
     <>
@@ -149,14 +163,23 @@ export default function Home() {
             <Heading>SchedulEasy</Heading>
             <Text>The only accurate, all-in-one scheduler you'll need.</Text>
           </VStack>
-          <Button
-            colorScheme="teal"
-            leftIcon={<AddIcon />}
-            onClick={() => router.push("/create")}
-            variant="solid"
-          >
-            Add event
-          </Button>
+          <HStack>
+            <Button
+              colorScheme="teal"
+              onClick={() => router.push("/subscriptions")}
+              variant="solid"
+            >
+              Subscribe
+            </Button>
+            <Button
+              colorScheme="teal"
+              leftIcon={<AddIcon />}
+              onClick={() => router.push("/create")}
+              variant="solid"
+            >
+              Add event
+            </Button>
+          </HStack>
         </HStack>
         <VStack w="100vw" spacing={2}>
           <Center>
@@ -197,12 +220,17 @@ export default function Home() {
                         timeOp(
                           e.startTime,
                           new Date(new Date(e.date).toDateString()),
-                          -1 * (e.adjustments.duration + e.walking.time)
+                          -1 *
+                            (e.adjustments
+                              ? e.adjustments.duration + e.walking.time
+                              : 0)
                         ),
                         "h:mm a"
                       )}
                     </Text>
-                    <Text>{e.adjustments.duration} min driving</Text>
+                    <Text>
+                      {e.adjustments ? e.adjustments.duration : "0"} min driving
+                    </Text>
                     <Text>{e.walking.time} min walking</Text>
                     <Divider
                       orientation="vertical"
@@ -210,7 +238,7 @@ export default function Home() {
                       borderWidth="3px"
                       borderRadius="10px"
                     />
-                    {e.nextAdjustments.duration ? (
+                    {e.nextAdjustments ? (
                       <Text>{e.nextAdjustments.duration} min driving</Text>
                     ) : (
                       <></>
@@ -221,7 +249,9 @@ export default function Home() {
                         timeOp(
                           e.endTime,
                           new Date(new Date(e.date).toDateString()),
-                          e.nextAdjustments.duration + e.walking.time
+                          e.nextAdjustments
+                            ? e.nextAdjustments.duration + e.walking.time
+                            : 0
                         ),
                         "h:mm a"
                       )}
@@ -255,13 +285,20 @@ export default function Home() {
                           </Text>
                           <Text pt="2" fontSize="sm">
                             <Text>
-                              {e.adjustments.duration} min |{" "}
-                              {e.adjustments.dist.toFixed(1)} mi TO event
+                              {!e.adjustments ? 0 : e.adjustments.duration} min
+                              |{" "}
+                              {!e.adjustments
+                                ? 0
+                                : e.adjustments.dist.toFixed(1)}{" "}
+                              mi TO event
                             </Text>
                             {e.nextAdjustments ? (
                               <Text>
                                 {e.nextAdjustments.duration} min |{" "}
-                                {e.adjustments.dist.toFixed(1)} mi FROM event{" "}
+                                {!e.adjustments
+                                  ? 0
+                                  : e.adjustments.dist.toFixed(1)}{" "}
+                                mi FROM event{" "}
                               </Text>
                             ) : (
                               <></>
