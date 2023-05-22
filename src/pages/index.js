@@ -89,7 +89,7 @@ export default function Home() {
           str2 +
           "&departure_time=" +
           time1 +
-          "&key=gUMnRMNMdNtBmKkeQYwSSD6GNcRds"
+          "&key=VygxWpvHpIc5b9teWDmQn3lkplVHQ"
       );
       if (go[i].nextHome) {
         const finlRes1 = await getDistanceTime(
@@ -99,7 +99,7 @@ export default function Home() {
             "4321 Walnut Avenue, Irvine, CA" +
             "&departure_time=" +
             time2 +
-            "&key=gUMnRMNMdNtBmKkeQYwSSD6GNcRds"
+            "&key=VygxWpvHpIc5b9teWDmQn3lkplVHQ"
         );
         go[i].nextAdjustments = {
           dist: finlRes1.dist,
@@ -163,7 +163,10 @@ export default function Home() {
             <Text>
               <span style={{ fontWeight: "bold" }}>Welcome Demo User!</span>{" "}
               Take a peek at your schedule for today,{" "}
-              <span style={{ fontWeight: "bold" }}>May 13</span>.
+              <span style={{ fontWeight: "bold" }}>
+                {new Date().toLocaleDateString()}
+              </span>
+              .
             </Text>
           </Center>
           <Center>
