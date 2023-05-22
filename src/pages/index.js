@@ -132,8 +132,9 @@ export default function Home() {
         if (go[i].nextHome) setNum(totNum + 2);
         else setNum(totNum + 1);
       }
+      if (totNum == 0) setLoading(false);
     } else {
-      if (events.length == totNum + 1 || totNum == 0) setLoading(false);
+      if (events.length == totNum + 1) setLoading(false);
     }
   }, [events]);
   return loading ? (
