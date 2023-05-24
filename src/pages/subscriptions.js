@@ -26,7 +26,7 @@ export default function Pricing() {
         <Center py={6}>
           <Box
             w={"350px"}
-            h={"600px"}
+            h={"550px"}
             bg={useColorModeValue("gray.50", "gray.900")}
             boxShadow={"2xl"}
             rounded={"md"}
@@ -89,7 +89,7 @@ export default function Pricing() {
         <Center py={6}>
           <Box
             w={"350px"}
-            h={"600px"}
+            h={"550px"}
             bg={useColorModeValue("white", "gray.800")}
             boxShadow={"2xl"}
             rounded={"md"}

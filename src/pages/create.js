@@ -190,7 +190,16 @@ export default function SignupCard() {
                     <h2>
                       <AccordionButton>
                         <Box as="span" flex="1" textAlign="left">
-                          Walking
+                          Walking{" "}
+                          <span
+                            style={{
+                              color: "teal",
+                              fontWeight: "bold",
+                              fontStyle: "italic",
+                            }}
+                          >
+                            NEXT
+                          </span>
                         </Box>
                         <AccordionIcon />
                       </AccordionButton>
@@ -228,7 +237,16 @@ export default function SignupCard() {
                       });
                     }}
                   >
-                    Send me a notification when it is time to leave.
+                    Send me a notification when it is time to leave.{" "}
+                    <span
+                      style={{
+                        color: "teal",
+                        fontStyle: "italic",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      NEXT
+                    </span>
                   </Checkbox>
                   <Checkbox
                     defaultChecked

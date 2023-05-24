@@ -127,14 +127,17 @@ export default function Home() {
         ? JSON.parse(localStorage.getItem("schedule"))
         : [];
     if (events.length == 0) {
+      let hello = 0;
       for (let i = 0; i < go.length; i++) {
         delay(i, go);
-        if (go[i].nextHome) setNum(totNum + 2);
-        else setNum(totNum + 1);
+        setNum(totNum + 1);
+        hello += 1;
       }
-      if (totNum == 0) setLoading(false);
+      if (hello == 0) setLoading(false);
     } else {
-      if (events.length == totNum + 1) setLoading(false);
+      if (events.length == totNum + 1) {
+        setLoading(false);
+      }
     }
   }, [events]);
   return loading ? (
@@ -270,7 +273,30 @@ export default function Home() {
                     <CardHeader>
                       <HStack>
                         <Heading size="md">{e.name}</Heading>
-                        <Button size="xs" colorScheme="red">
+                        <Button
+                          size="xs"
+                          colorScheme="red"
+                          onClick={() => {
+                            const go = JSON.parse(
+                              localStorage.getItem("schedule")
+                            );
+                            for (let i = 0; i < go.length; i++) {
+                              if (
+                                new Date(go[i].date).getTime() ==
+                                  new Date(e.date).getTime() &&
+                                go[i].name == e.name
+                              ) {
+                                go.splice(i, 1);
+                                localStorage.setItem(
+                                  "schedule",
+                                  JSON.stringify(go)
+                                );
+                                break;
+                              } else alert("Error! Please try again.");
+                              window.location.reload(false);
+                            }
+                          }}
+                        >
                           Delete
                         </Button>
                       </HStack>
@@ -328,6 +354,7 @@ export default function Home() {
                 </Stack>
               );
             })}
+          <Text mt="5px">End of events for today!</Text>
         </VStack>
       </Container>
     </>
